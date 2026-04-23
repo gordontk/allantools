@@ -16,3 +16,12 @@ htmlcov/
 .python-version
 refs/
 experimental/
+
+# Claude Code
+.claude/
+CLAUDE.md
+.claude*
+
+# Graphify
+graphify-out/
+*.graphify*

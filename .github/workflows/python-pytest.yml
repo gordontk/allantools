@@ -33,3 +33,6 @@ jobs:
     - name: Test with pytest
       run: |
         pytest
+    - name: Test parallel accelerated functions
+      run: |
+        pytest tests/functional_tests/test_parallel.py -v
