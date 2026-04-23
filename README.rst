@@ -54,6 +54,22 @@ Function                                Description                             
 ``gcodev()``                            Groslambert Covariance                                 Improved three-corner-hat analysis
 =====================================   ====================================================   ====================================================
 
+**Parallel accelerated versions** are also available for improved performance on large datasets:
+
+=====================================   ====================================================   ====================================================
+Function                                Description                                            Comment
+=====================================   ====================================================   ====================================================
+``padev()``                             Parallel Allan deviation                               Multi-core accelerated version
+``poadev()``                            Parallel Overlapping Allan deviation                   Multi-core accelerated version
+``pmdev()``                             Parallel Modified Allan deviation                      Multi-core accelerated version
+``ptdev()``                             Parallel Time deviation                                Multi-core accelerated version
+``phdev()``                             Parallel Hadamard deviation                            Multi-core accelerated version
+``pohdev()``                            Parallel Overlapping Hadamard deviation               Multi-core accelerated version
+``ppdev()``                             Parallel Parabolic deviation                           Multi-core accelerated version
+``pgradev()``                           Parallel Gap resistant Allan deviation                 Multi-core accelerated version
+``pgcodev()``                           Parallel Groslambert Covariance                       Multi-core accelerated version
+=====================================   ====================================================   ====================================================
+
 Noise generators for creating synthetic datasets are also included:
 
 * violet noise with f^2 PSD
@@ -147,6 +163,32 @@ frequency, is left to the user.
     # You can override defaults before "show" if needed
     b.ax.set_xlabel("Tau (s)")
     b.show()
+
+
+Parallel accelerated functions
+-------------------------------
+
+For large datasets, parallel accelerated versions can provide significant performance improvements:
+
+::
+
+    import allantools
+    import numpy as np
+
+    # Generate large dataset
+    data = np.random.rand(1000000)
+    rate = 100.0
+
+    # Use parallel version with parallel=True
+    from allantools.allantools_parallel import poadev
+    taus, devs, errs, ns = poadev(data, rate=rate, taus="octave", parallel=True)
+
+    # Or use default serial execution
+    taus, devs, errs, ns = poadev(data, rate=rate, taus="octave", parallel=False)
+
+Parallel functions automatically fall back to serial execution for small datasets where parallelization overhead would exceed benefits. All parallel functions have the same API as their original counterparts.
+
+Available parallel functions: ``padev``, ``poadev``, ``pmdev``, ``ptdev``, ``phdev``, ``pohdev``, ``ppdev``, ``pgradev``, ``pgcodev``.
 
 
 Jupyter notebooks with examples 
